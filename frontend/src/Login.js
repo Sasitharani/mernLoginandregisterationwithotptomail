@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { login } from './loginSLice';
 
 const Login = ({ setShowRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Handle login logic here
+    if (username === '123' && password === '123') {
+      dispatch(login({ username, password }));
+    } else {
+      alert('Invalid credentials');
+    }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -29,7 +37,7 @@ const Login = ({ setShowRegister }) => {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded"
           />
-          <button type="submit" className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600">
+          <button onClick={handleLogin} type="submit" className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600">
             Login
           </button>
         </form>
